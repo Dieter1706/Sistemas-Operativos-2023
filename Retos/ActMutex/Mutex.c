@@ -7,8 +7,6 @@ pthread_barrier_t barrera;
 
 // Ejecución de Hilo + Sección Critica
 void Suma(void){
-    
-    
     //Bloqueando acceso a Región Crítica
     pthread_mutex_lock(&lock);
     printf("Hilo ingresando a recurso compartido\n");
@@ -28,7 +26,7 @@ int main(){
     //Definición de Hilos
     pthread_t hilo1, hilo2, hilo3;
 
-    //Inicialización de Mutex
+    //Inicialización de Mutex y barrera
     pthread_mutex_init(&lock, NULL);
     pthread_barrier_init(&barrera, NULL, 3);
 
@@ -44,6 +42,7 @@ int main(){
     pthread_join(hilo3, NULL);
 
 
-    //Destruir el Mutex final
+    //Destruir el Mutex y Barrera
     pthread_mutex_destroy(&lock);
+    pthread_barrier_destroy(&barrera);
 }
